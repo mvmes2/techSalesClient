@@ -7,6 +7,36 @@
   min-height: 100vh;
 }
 
+.Modal input {
+  margin-bottom: 30px;
+  width: 222px;
+  height: 35px;
+}
+
+.Modal button {
+  padding: 2px;
+}
+
+.Modal button:hover {
+  cursor: pointer;
+}
+
+.BtnsWraper {
+  display: flex;
+  justify-content: center;
+}
+
+.BtnsWraper .Modal {
+  margin-left: 10px;
+}
+
+.formWraper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(25%, auto));
+  max-width: 100%;
+  column-gap: 25px;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;
@@ -37,6 +67,66 @@
 .code {
   font-weight: 700;
   font-family: var(--font-mono);
+}
+.passwordContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%; /* Ajuste conforme necessário */
+}
+/* Container geral do input com o ícone */
+.passwordInput {
+  position: relative;
+  width: 100%;
+}
+
+/* Estilo do input */
+.passwordInput input {
+  width: 100%;
+  padding-right: 40px; /* Espaço para o ícone */
+  padding-left: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.passwordInput input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+/* Ícone do olho */
+.eyeIcon {
+  position: absolute;
+  top: 50%;
+  right: 12px; /* Sempre no canto direito */
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.eyeIcon:hover {
+  color: #007bff;
+}
+
+
+.eyeBtn:hover {
+  cursor: pointer;
+}
+
+.eyeBtnCadastro {
+  position: absolute;
+  bottom: 200px;
+  left: 265px;
+}
+
+.eyeBtnCadastro:hover {
+  cursor: pointer;
 }
 
 .grid {
@@ -111,6 +201,7 @@
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
+    cursor: pointer;
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }

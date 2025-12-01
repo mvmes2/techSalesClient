@@ -1,95 +1,191 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/context/authContext';
+import { Modal } from '@/components/ui/Modal';
+import LoginForm from '@/components/auth/LoginForm';
+import RegisterForm from '@/components/auth/RegisterForm';
+import ForgotPasswordForm from '@/components/auth/ForgotPasswordForm';
+import { browserStorage } from '@/utils/browserStorage';
+import {
+  HomeContainer,
+  HeroSection,
+  HeroContent,
+  HeroTitle,
+  HeroSubtitle,
+  HeroActions,
+  LogoContainer,
+  FeaturesSection,
+  FeatureCard,
+  FeatureIcon,
+  FeatureTitle,
+  FeatureDescription,
+  FeaturesGrid
+} from '@/styles/pages/home.styles';
+import { Button } from '@/components/ui/Button';
+import Image from 'next/image';
+import { FiBarChart2, FiUsers, FiPackage, FiShield } from 'react-icons/fi';
+
+type ModalView = 'login' | 'register' | 'forgotPassword';
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalView, setModalView] = useState<ModalView>('login');
+  const { push } = useRouter();
+  const { userLogged } = useAuthContext();
+
+  useEffect(() => {
+    // Se o usuário já estiver logado, redireciona para a página inicial
+    if (browserStorage.hasItem('session')) {
+      push('/user-home');
+    }
+  }, [push, userLogged]);
+
+  const handleOpenModal = (view: ModalView) => {
+    setModalView(view);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const getModalTitle = () => {
+    switch (modalView) {
+      case 'login':
+        return 'Entrar';
+      case 'register':
+        return 'Criar Conta';
+      case 'forgotPassword':
+        return 'Recuperar Senha';
+      default:
+        return '';
+    }
+  };
+
+  const renderModalContent = () => {
+    switch (modalView) {
+      case 'login':
+        return (
+          <LoginForm
+            onRegisterClick={() => setModalView('register')}
+            onForgotPasswordClick={() => setModalView('forgotPassword')}
+          />
+        );
+      case 'register':
+        return (
+          <RegisterForm
+            onLoginClick={() => setModalView('login')}
+          />
+        );
+      case 'forgotPassword':
+        return (
+          <ForgotPasswordForm
+            onBackToLogin={() => setModalView('login')}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+    <HomeContainer>
+      <HeroSection>
+        <HeroContent>
+          <LogoContainer>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
+              src="/teste2.png"
+              alt="SalesTech Logo"
+              width={250}
+              height={60}
+              style={{ height: 'auto' }}
               priority
             />
-          </a>
-        </div>
-      </div>
+          </LogoContainer>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          <HeroTitle>
+            Gerencie seu negócio com eficiência
+          </HeroTitle>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          <HeroSubtitle>
+            Uma solução completa para gestão de vendas, estoque e clientes
+          </HeroSubtitle>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <HeroActions>
+            <Button
+              size="large"
+              onClick={() => handleOpenModal('login')}
+            >
+              Entrar
+            </Button>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+            <Button
+              variant="outlined"
+              size="large"
+              onClick={() => handleOpenModal('register')}
+            >
+              Criar Conta
+            </Button>
+          </HeroActions>
+        </HeroContent>
+      </HeroSection>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <FeaturesSection>
+        <h2>Recursos principais</h2>
+
+        <FeaturesGrid>
+          <FeatureCard>
+            <FeatureIcon>
+              <FiBarChart2 size={32} />
+            </FeatureIcon>
+            <FeatureTitle>Análise de Vendas</FeatureTitle>
+            <FeatureDescription>
+              Acompanhe o desempenho das suas vendas com gráficos e relatórios detalhados.
+            </FeatureDescription>
+          </FeatureCard>
+
+          <FeatureCard>
+            <FeatureIcon>
+              <FiUsers size={32} />
+            </FeatureIcon>
+            <FeatureTitle>Gestão de Clientes</FeatureTitle>
+            <FeatureDescription>
+              Mantenha um cadastro completo dos seus clientes e histórico de compras.
+            </FeatureDescription>
+          </FeatureCard>
+
+          <FeatureCard>
+            <FeatureIcon>
+              <FiPackage size={32} />
+            </FeatureIcon>
+            <FeatureTitle>Controle de Estoque</FeatureTitle>
+            <FeatureDescription>
+              Gerencie seu inventário com facilidade e receba alertas de estoque baixo.
+            </FeatureDescription>
+          </FeatureCard>
+
+          <FeatureCard>
+            <FeatureIcon>
+              <FiShield size={32} />
+            </FeatureIcon>
+            <FeatureTitle>Segurança Avançada</FeatureTitle>
+            <FeatureDescription>
+              Seus dados estão protegidos com as mais modernas tecnologias de segurança.
+            </FeatureDescription>
+          </FeatureCard>
+        </FeaturesGrid>
+      </FeaturesSection>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={getModalTitle()}
+        size="small"
+      >
+        {renderModalContent()}
+      </Modal>
+    </HomeContainer>
   );
 }

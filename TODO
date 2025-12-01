@@ -1,0 +1,57 @@
+(GERAL)....
+
+- Simular varios dados no BackEnd Para testar se comunicação por Token pode quebrar quando tiver muitos dados sendo transformados em token e trafegando.
+R: basta realizarmos paginação onde pode conter um grande volume de dados, como por exemplo: "Listar produtos", "Listar usuarios", tentar manter um limite de 50 itens por pagina, solicitar apenas dados das tabelas que irão ser utilizados, e insirir um campo de busca direta
+em um endPoint específico para nao precisar ter todos os dados
+no front para fazer o match de busca.
+
+- Confirmar criação de usuário Principal + empresa. [X]
+
+- Validar os campos necessarios das imformações da empresa/usuario. []
+
+- Simplificar modal, caso o usuario se cadastrando for o proprio dono da empresa, nao pedir Nome dono da empresa nem email do dono da empresa
+colocar um checkBox para essa condicional "Sou o dono da empresa". [ ]
+
+- Confirmar e validar Login correto com informações necessarias para a aplicação 
+"checar segurança, comunicação entre front e back por tokens". [ ]
+
+- Tentar Criar essa feature no frontEnd, ao enviar informações para o backend, o mesmo envia em forma de token assim como o back para 
+o front. [ ]
+
+
+(MODULO CLIENTES)....
+
+- Confirmar criação correta de clientes, bem como sua exibição na pagina de clientes. [ ]
+
+- Confirmar edição/atualização correta de clientes, bem como sua exibição na pagina de clientes com as informações atualizadas. [ ]
+
+- Confirmar exclusão correta de clientes, bem como sua ausência na pagina de clientes. [ ]
+
+- Criar Pagina de vendas Modularizada, pois iremos usar também na pagina de clientes em "Adicionar venda". [ ]
+
+- confirmar funcionalidade de "Adicionar Venda" na pagina de Clientes. [ ]
+
+- Confirmar historico de venda se esta exibindo corretamente as informações das vendas realizadas. [ ]
+
+- Criar pagina de criação e exibição de Serviços, pois iremos usar a exibição de serviços criados na pagina de clientes. [ ]
+
+- Confimar exibição correta de serviços ja criados na pagina de clientes. [ ]
+
+- Confirmar modal de Ordem de serviço na pagina de detalhes do serviço dentro da pagina de detalhes do cliente. [ ]
+
+- Confirmar geração de PF no modal de serviços na pagina de detalhes do cliente. [ ]
+
+- Confirmar impressão da ordem de serviço no modal de serviços na pagina de detalhes do cliente. [ ]
+
+- Confirmar exibição correta de infomrações / valores em faturamento na pagina de detalhes do serviço na pagina de detalhes do cliente. [ ]
+
+
+(MODULO VENDAS)....
+
+- Criar pagina geral de vendas, com opção de criar uma nova venda, ver historico de todas as vendas, valores atuais do dia etc.. [ ]
+
+
+(MODULO SERVIÇOS)....
+
+- Criar pagina geral de serviços, com opção de criar um novo serviço, ver historico de todos os serviços, valores atuais do dia etc.. [ ]
+
